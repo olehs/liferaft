@@ -321,6 +321,9 @@ class Raft extends EventEmitter {
             const entries = await raft.log.getUncommittedEntriesUpToIndex(packet.last.committedIndex, packet.last.term);
             raft.commitEntries(entries);
           }
+
+          //respond with 'heartbeat ack' acknowledge package in case of empty heartbeat
+          write(await raft.packet('heartbeat ack'));
         break;
 
         case 'append ack':
