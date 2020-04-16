@@ -21,9 +21,8 @@
   },
   "homepage": "https://github.com/unshiftio/liferaft",
   "dependencies": {
-    "argh": "0.1.x",
-    "axon": "2.0.x",
-    "diagnostics": "1.1.x",
-    "nanomsg": "4.0.x"
+    "argh": "^1.0.0",
+    "axon": "^2.0.0",
+    "diagnostics": "^2.0.0"
   }
 }

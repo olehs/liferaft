@@ -37,3 +37,8 @@ lib
 
 #leveldown test folder
 tmp
+example/db/**/*
+
+# Lock-files
+package-lock.json
+yarn.lock
