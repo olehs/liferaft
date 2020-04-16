@@ -9,8 +9,8 @@
 The `liferaft` module is distributed through npm and is compatible with
 `browserify` as well as `node.js`. You can install this module using:
 
-```
-npm install --save liferaft
+```shell
+npm install --save olehs/liferaft
 ```
 
 ## Table Of Contents
@@ -32,7 +32,7 @@ npm install --save liferaft
   - [LifeRaft#promote()](#liferaftpromote)
   - [LifeRaft#end()](#liferaftend)
   - [LifeRaft#command()](#liferaftcommand)
-- [Log Replication](#logreplication)
+- [Log Replication](#log-replication)
 - [Extending](#extending)
 - [Transports](#transports)
 - [License](#license)
@@ -127,8 +127,8 @@ Event               | Description
 
 ---
 
-**Please note that the following properties are exposed on the `constructor` not
-on the `prototype`.**
+_**Please note that the following properties are exposed on the `constructor` not
+on the `prototype`.**_
 
 ### LifeRaft.states
 
@@ -146,7 +146,7 @@ state will be set to `LifeRaft.LEADER`.
 
 ---
 
-**The rest of these properties are exposed on the LifeRaft `prototype`**
+_**The rest of these properties are exposed on the LifeRaft `prototype`**_
 
 ### LifeRaft#type(of)
 
@@ -247,10 +247,10 @@ availability patterns on top of this module and take advantage of all the
 features that this library is offering. This method accepts 2 arguments:
 
 1. `who`, The messaging pattern/mode you want it use. It can either be:
-  - `LifeRaft.LEADER`: Send message to the current leader.
-  - `LifeRaft.FOLLOWER`: Send to everybody who is not a leader.
-  - `LifeRaft.CHILD`: Send to every child in the cluster (everybody).
-  - `<node address>`: Find the node based on the provided address.
+    - `LifeRaft.LEADER`: Send message to the current leader.
+    - `LifeRaft.FOLLOWER`: Send to everybody who is not a leader.
+    - `LifeRaft.CHILD`: Send to every child in the cluster (everybody).
+    - `<node address>`: Find the node based on the provided address.
 2. `what`, The message body you want to use. We high suggest using the `.packet`
    method for constructing cluster messages so additional state can be send.
 3. `when`, Optional completion callback for when all messages are send.
@@ -305,7 +305,7 @@ raft.on('leave', function leave(node) {
 
 ### LifeRaft#promote()
 
-**Private method, use with caution**
+_**Private method, use with caution**_
 
 This promotes the Node from `FOLLOWER` to `CANDIDATE` and starts requesting
 votes from other connected nodes. When the majority has voted in favour of this
@@ -317,7 +317,7 @@ raft.promote();
 
 ### LifeRaft#end()
 
-**This method is also aliased as `.destroy`.**
+_**This method is also aliased as `.destroy`.**_
 
 This signals that the node wants to be removed from the cluster. Once it has
 successfully removed it self, it will emit the `end` event.
@@ -345,7 +345,6 @@ raft.on('commit', function (command) {
 });
 
 ```
-
 
 ## Extending
 
@@ -379,6 +378,7 @@ each node's log.
 const Log = require('liferaft/log');
 
 const raft = new Raft({
+  Log: Log,
   adapter: require('leveldown'),
   path: './db/log1'
   });
