@@ -1,5 +1,6 @@
 const debug = require('diagnostics')('raft')
   , argv = require('argh').argv
+  , Log = require('../log')
   , LifeRaft = require('../');
 
 let msg;
@@ -74,6 +75,7 @@ const ports = [
 //
 var port = +argv.port || ports[0];
 
+
 //
 // Now that we have all our variables we can safely start up our server with our
 // assigned port number.
@@ -83,6 +85,11 @@ const raft = new MsgRaft('tcp://127.0.0.1:'+ port, {
   'election max': 5000,
   'heartbeat': 1000
 });
+
+raft.log = new Log(raft, {
+  adapter: require('memdown')
+})
+
 
 raft.on('heartbeat timeout', function () {
   debug('heart beat timeout, starting election');

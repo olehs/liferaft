@@ -4,6 +4,8 @@
   "description": "An example of a custom raft service",
   "main": "index.js",
   "scripts": {
+    "start": "node ./index.js",
+    "start-tcp": "node ./tcp.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +25,7 @@
   "dependencies": {
     "argh": "^1.0.0",
     "axon": "^2.0.0",
-    "diagnostics": "^2.0.0"
+    "diagnostics": "^2.0.0",
+    "memdown": "^5.1.0"
   }
 }
