@@ -21,7 +21,7 @@ class Log {
   constructor (node, {adapter = require('leveldown'), path = ''}) {
     this.node = node;
     this.committedIndex = 0;
-    this.db = levelup(encode(adapter(path), { valueEncoding: 'json', keyEncoding: 'binary'}));
+    this.db = levelup(encode(adapter(path), { valueEncoding: 'json', keyEncoding: 'none'}));
   }
 
   /**

@@ -6,8 +6,8 @@
   "browser": "./lib/",
   "scripts": {
     "test": "npm run test-memdown && npm run test-leveldown",
-    "test-leveldown": "ADAPTER=leveldown mocha test/**.js",
-    "test-memdown": "ADAPTER=memdown mocha test/**.js",
+    "test-leveldown": "cross-env ADAPTER=leveldown mocha test/**.js",
+    "test-memdown": "cross-env ADAPTER=memdown mocha test/**.js",
     "test-travis": "nyc --reporter=html --reporter=text npm test",
     "prepublish": "npm run build",
     "build": "babel ./index.js ./log.js -d ./lib"
@@ -46,6 +46,7 @@
     "@babel/preset-env": "^7.9.5",
     "@babel/register": "^7.9.0",
     "assume": "^2.2.0",
+    "cross-env": "^7.0.2",
     "diagnostics": "^2.0.2",
     "memdown": "^5.1.0",
     "mkdirp": "^1.0.4",

@@ -761,7 +761,7 @@ class Raft extends EventEmitter {
   async appendPacket (entry) {
     const raft = this;
     const last = await raft.log.getEntryInfoBefore(entry);
-    return{
+    return {
         state:   raft.state,    // Are we're a leader, candidate or follower.
         term:    raft.term,     // Our current term so we can find mis matches.
         address: raft.address,  // Address of the sender.
@@ -909,11 +909,12 @@ class Raft extends EventEmitter {
   async command(command) {
     let raft = this;
 
-    if(raft.state !== Raft.LEADER) {
-      return fn({
+    if (raft.state !== Raft.LEADER) {
+      raft.emit("error", new Error({
         message: 'NOTLEADER',
-        leaderAddress: raft.leader
-      });
+        leader: raft.leader
+      }));
+      return;
     }
 
     // about to send an append so don't send a heart beat
@@ -929,7 +930,7 @@ class Raft extends EventEmitter {
    * @param {Entry[]} entries Entries to commit
    * @return {Promise<void>}
    */
-  async commitEntries (entries) {
+  async commitEntries(entries) {
     entries.forEach(async (entry) => {
       await this.log.commit(entry.index)
       this.emit('commit', entry.command);

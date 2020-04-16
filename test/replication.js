@@ -1,12 +1,12 @@
 const assume = require('assume');
-const Raft = require('../');
-const Log = require('../log');
+const path = require('path');
 const net = require('net');
 const util = require('util');
 const rimraf = util.promisify(require('rimraf'));
-const mkdirp = util.promisify(require('mkdirp'));
+const mkdirp = require('mkdirp');
 const debug = require('diagnostics')('cluster');
-const port = 8088;
+const Raft = require('../');
+const Log = require('../log');
 
 /* istanbul ignore next */
 describe('liferaft Log Replication', () => {
@@ -79,7 +79,7 @@ describe('liferaft Log Replication', () => {
 
   beforeEach(async () => {
     if (process.env.ADAPTER === 'leveldown') {
-      const leveldbPath = `${process.cwd()}/tmp`;
+      const leveldbPath = path.join(process.cwd(), 'tmp');
       await rimraf(leveldbPath);
       await mkdirp(leveldbPath);
       node1 = new WoodenRaft({address: 8111, Log, path: './tmp/8111'});
